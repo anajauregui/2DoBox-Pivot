@@ -33,7 +33,7 @@ $('.save-button').on('click', function()  {
   var idea = new Idea(title, body);// create a new Idea object and pass thru the captured input and body values
   prepend(idea); // add the new idea card to the card area
   clearInputFields();  // clear the user input and body values
-  sendToStorage(idea); // set the item and strigify to local storage
+  sendToStorage(idea); // set the item and stringify to local storage
   disableSaveButton();
 })
 
@@ -43,8 +43,17 @@ $(document).keypress(function(e) {
   }
 })
 
+// $('.card-container').on('input keydown', '.idea-body', function(e) {
+//   if(e.keycode == 13) {
+//     e.preventDefault();
+//     $('.idea-body').trigger('focusout');
+//     console.log('clicked');
+//   }
+// })
+
 //  new input in exsisting title area save to storage
 $('.card-container').on('keyup', '.idea-title',  function() {// identify typing in title field
+  console.log('keyup')
 	var id = $(this).parent().prop('id');//get the unique id of this idea card
 	var parsedIdea = JSON.parse(localStorage.getItem(id))//get the current quality of this idea card
 	parsedIdea.title = $(this).val()// update the value of the title field
@@ -53,6 +62,7 @@ $('.card-container').on('keyup', '.idea-title',  function() {// identify typing 
 
 //  new input in exsisting body area save to storage
 $('.card-container').on('keyup', '.idea-body',  function() {// identify typing in body field
+  console.log('keyup')
 	var id = $(this).parent().prop('id');//get the unique id of this idea card
 	var parsedIdea = JSON.parse(localStorage.getItem(id))//get the current quality of this idea card
 	parsedIdea.body = $(this).val() // update the value of the body field
@@ -97,11 +107,11 @@ $('.card-container').on('click', '.arrow-down',  function() {
 //   functions
 //*********************************************************************************
 
-//  prepend idea crad to card container
+//  prepend idea card to card container
 function prepend(idea)  { // add the new idea card created on the save button event listener to the card section
   $('.card-container').prepend(`
     <article class='idea-card'id=${idea.id}>
-      <input class='idea-title idea-input' type='text' value='${idea.title}'>
+      <input class='idea-title idea-input' value='${idea.title}'>
       <button class='delete-button'></button>
       <textarea cols='30' rows='10' class='idea-body idea-input' type='text' value=''>${idea.body}</textarea>
       <section class='button-container'>
@@ -119,13 +129,13 @@ function prepend(idea)  { // add the new idea card created on the save button ev
 function enableSaveButton13()  {
   var title = $('.input-title').val();
   var body = $('.input-body').val();
-  var idea = new Idea(title, body);// create a new Idea object and pass thru the captured input and body values
+  var idea = new Idea(title, body);// create a new Idea object and pass through the captured input and body values
     if (title === "" || body === "") {
       $('.save-button').prop('disabled', true)
   } else {$('.save-button').prop('disabled', false)
   prepend(idea); // add the new idea card to the card area
   clearInputFields();  // clear the user input and body values
-  sendToStorage(idea); // set the item and strigify to local storage
+  sendToStorage(idea); // set the item and stringify to local storage
   disableSaveButton();
 }
 }
@@ -170,15 +180,19 @@ $('.card-container').on('click', '.delete-button', function (){
 
 });
 // live search
-$(".search-input").on("keyup", function() {
+$('.search-input').on('keyup', function() {
   var searchText = this.value
   //jquery .each, gives two arguments, first index of selected array, second is value at that index
-  $(".idea-input").each( function(index, ideaCard){
+  $('.idea-input').each( function(index, ideaCard){
     if(!ideaCard.value.includes(searchText)) {
+      console.log(ideaCard);
+      console.log(ideaCard.value);
       console.log($(this).closest("article"))
-      $(this).closest(".idea-card").hide()
+      $(this).closest('.idea-card').hide();
     } else {
-      $(this).closest(".idea-card").show()
+      console.log('the value of idea input', $('.idea-input').val());
+      console.log('this is', $(this));
+      $(this).closest('.idea-card').show();
     }
   })
 })

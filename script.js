@@ -36,13 +36,6 @@ $(document).keypress(function(e) {
   }
 })
 
-// delete
-$('.card-container').on('click', '.delete-button', function (){
-  var id = $(this).parent().prop('id');
-  localStorage.removeItem(id);
-  $(this).parent().remove();
-});
-
 // $('.card-container').on('input keydown', '.idea-body', function(e) {
 //   if(e.keycode == 13) {
 //     e.preventDefault();
@@ -51,23 +44,14 @@ $('.card-container').on('click', '.delete-button', function (){
 //   }
 // })
 
+// delete
+$('.card-container').on('click', '.delete-button', deleteItem);
+
 //  new input in exsisting title area save to storage
-$('.card-container').on('keyup', '.idea-title',  function() {// identify typing in title field
-  // console.log('keyup')
-	var id = $(this).parent().prop('id');//get the unique id of this idea card
-	var parsedIdea = JSON.parse(localStorage.getItem(id))//get the current quality of this idea card
-	parsedIdea.title = $(this).val()// update the value of the title field
-	localStorage.setItem(id, JSON.stringify(parsedIdea))// return the updated object idea card to local storage
-})
+$('.card-container').on('keyup', '.idea-title', editTitle);
 
 //  new input in exsisting body area save to storage
-$('.card-container').on('keyup', '.idea-body',  function() {// identify typing in body field
-  console.log('keyup')
-	var id = $(this).parent().prop('id');//get the unique id of this idea card
-	var parsedIdea = JSON.parse(localStorage.getItem(id))//get the current quality of this idea card
-	parsedIdea.body = $(this).val() // update the value of the body field
-	localStorage.setItem(id, JSON.stringify(parsedIdea))// return the updated object idea card to local storage
-})
+$('.card-container').on('keyup', '.idea-body', editTask);
 
 // up arrow button change quality
 $('.card-container').on('click', '.arrow-up',  function() {
@@ -125,6 +109,26 @@ function prepend(idea)  { // add the new idea card created on the save button ev
     `)
 }
 
+function deleteItem() {
+  var id = $(this).parent().prop('id');
+  localStorage.removeItem(id);
+  $(this).parent().remove();
+};
+
+function editTitle() {
+  var id = $(this).parent().prop('id');//get the unique id of this idea card
+	var parsedIdea = JSON.parse(localStorage.getItem(id))//get the current quality of this idea card
+	parsedIdea.title = $(this).val()// update the value of the title field
+	localStorage.setItem(id, JSON.stringify(parsedIdea))// return the updated object idea card to local storage
+}
+
+function editTask() {
+  var id = $(this).parent().prop('id');//get the unique id of this idea card
+	var parsedIdea = JSON.parse(localStorage.getItem(id))//get the current quality of this idea card
+	parsedIdea.body = $(this).val() // update the value of the body field
+	localStorage.setItem(id, JSON.stringify(parsedIdea))// return the updated object idea card to local storage
+}
+
 // enable save button on return
 function enableSaveButton13()  {
   var title = $('.input-title').val();
@@ -137,7 +141,7 @@ function enableSaveButton13()  {
   clearInputFields();  // clear the user input and body values
   sendToStorage(idea); // set the item and stringify to local storage
   disableSaveButton();
-}
+  }
 }
 
 // enable save button

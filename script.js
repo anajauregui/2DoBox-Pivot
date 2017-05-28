@@ -21,27 +21,27 @@ $(document).ready(function() { // fire on document load
 	}
 });
 
+//trigger search functions on input
+$('.search-input').on('input', filterList);
+
 // enable save button on inputs
-$('.input-container').on('input', function()  {
-  enableSaveButton();
-})
+$('.input-container').on('input', enableSaveButton);
 
 // save button capture input values and send to append function
-$('.save-button').on('click', function()  {
-  var title = $('.input-title').val();// capture input value
-  var body = $('.input-body').val();// capture body value
-  var idea = new Idea(title, body);// create a new Idea object and pass thru the captured input and body values
-  prepend(idea); // add the new idea card to the card area
-  clearInputFields();  // clear the user input and body values
-  sendToStorage(idea); // set the item and stringify to local storage
-  disableSaveButton();
-})
+$('.save-button').on('click', saveNewItem);
 
 $(document).keypress(function(e) {
   if(e.which == 13) {
     enableSaveButton13();
   }
 })
+
+// delete
+$('.card-container').on('click', '.delete-button', function (){
+  var id = $(this).parent().prop('id');
+  localStorage.removeItem(id);
+  $(this).parent().remove();
+});
 
 // $('.card-container').on('input keydown', '.idea-body', function(e) {
 //   if(e.keycode == 13) {
@@ -53,7 +53,7 @@ $(document).keypress(function(e) {
 
 //  new input in exsisting title area save to storage
 $('.card-container').on('keyup', '.idea-title',  function() {// identify typing in title field
-  console.log('keyup')
+  // console.log('keyup')
 	var id = $(this).parent().prop('id');//get the unique id of this idea card
 	var parsedIdea = JSON.parse(localStorage.getItem(id))//get the current quality of this idea card
 	parsedIdea.title = $(this).val()// update the value of the title field
@@ -172,27 +172,39 @@ function getFromStorage(id) {
 	return parsedIdea;
 }
 
-// delete
-$('.card-container').on('click', '.delete-button', function (){
-  var id = $(this).parent().prop('id');
-  localStorage.removeItem(id);
-  $(this).parent().remove();
+function getAllFromLocalStorage(){
+  var allItems = []
+  for (var i = 0; i < localStorage.length; i++) {
+    allItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+  }
+  return allItems;
+}
 
-});
-// live search
-$('.search-input').on('keyup', function() {
-  var searchText = this.value
-  //jquery .each, gives two arguments, first index of selected array, second is value at that index
-  $('.idea-input').each( function(index, ideaCard){
-    if(!ideaCard.value.includes(searchText)) {
-      console.log(ideaCard);
-      console.log(ideaCard.value);
-      console.log($(this).closest("article"))
-      $(this).closest('.idea-card').hide();
-    } else {
-      console.log('the value of idea input', $('.idea-input').val());
-      console.log('this is', $(this));
-      $(this).closest('.idea-card').show();
-    }
+function filterList(){
+  var filteredList = [];
+  var searchText = $('.search-input').val().toUpperCase();
+  var fullList = getAllFromLocalStorage();
+  filteredList = fullList.filter(function(item){
+   return item.title.toUpperCase().includes(searchText) || item.body.toUpperCase().includes(searchText)
   })
-})
+  if (filteredList.length > 0) {
+    displaySearchResults(filteredList);
+  }
+}
+
+function displaySearchResults(searchResults) {
+  $('.card-container').empty();
+  searchResults.forEach(function(item) {
+    prepend(item);
+  })
+}
+
+function saveNewItem()  {
+ var title = $('.input-title').val();// capture input value
+ var body = $('.input-body').val();// capture body value
+ var idea = new Idea(title, body);// create a new Idea object and pass thru the captured input and body values
+ prepend(idea); // add the new idea card to the card area
+ clearInputFields();  // clear the user input and body values
+ sendToStorage(idea); // set the item and stringify to local storage
+ disableSaveButton();
+}

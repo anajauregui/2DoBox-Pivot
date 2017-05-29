@@ -8,6 +8,7 @@ function Idea(title, body)  {
   this.body = body;
   this.quality = 'Swill';// default quality
   this.id = Date.now();// this creates a unique time stamp that will be used to identify an individual card by placing it in an article as the name of the ID
+  this.isComplete = false;
 }
 
 //************************************************************
@@ -19,7 +20,13 @@ $(document).ready(function() { // fire on document load
 	for (var i = 0; i < localStorage.length; i++) { // run for loop over entire length of local storage array
 		prepend(JSON.parse(localStorage.getItem(localStorage.key(i)))); //get every item from local storage.  Parse each item.  Run the Append function on each item
 	}
+  completedList();
 });
+//Use show completed todo button to display completed todo's on top of 
+$('.show-completed').on('click', showCompletedTasks)
+
+//Toggle completed task to-do for strike through
+$('.card-container').on('click', '.completed-task', completeTask);
 
 //trigger search functions on input
 $('.search-input').on('input', filterList);
@@ -96,6 +103,7 @@ function prepend(idea)  { // add the new idea card created on the save button ev
   $('.card-container').prepend(`
     <article class='idea-card'id=${idea.id}>
       <input class='idea-title idea-input' value='${idea.title}'>
+      <img class='completed-task' src='assets/success.png'>
       <button class='delete-button'></button>
       <textarea cols='30' rows='10' class='idea-body idea-input' type='text' value=''>${idea.body}</textarea>
       <section class='button-container'>
@@ -107,6 +115,17 @@ function prepend(idea)  { // add the new idea card created on the save button ev
       <hr />
     </article>
     `)
+}
+
+function completeTask(complete) {
+  var id = $(this).parent().prop('id');
+  var parsedIdea = JSON.parse(localStorage.getItem(id));
+  var isComplete = parsedIdea.isComplete;
+  if (isComplete === false) {
+    $(this).parent().toggleClass('complete');
+    parsedIdea.isComplete = true;
+  }
+    localStorage.setItem(id, JSON.stringify(parsedIdea))
 }
 
 function deleteItem() {
@@ -148,10 +167,10 @@ function enableSaveButton13()  {
 function enableSaveButton()  {
   var ideaTitle = $('.input-title').val();
   var ideaBody = $('.input-body').val();
-    if (ideaTitle === "" || ideaBody === "") {
-      $('.save-button').prop('disabled', true)
-  } else {$('.save-button').prop('disabled', false)
-}
+      if (ideaTitle === "" || ideaBody === "") {
+        $('.save-button').prop('disabled', true)
+      } else { $('.save-button').prop('disabled', false)
+  }
 }
 
 // disable save button
@@ -177,7 +196,7 @@ function getFromStorage(id) {
 }
 
 function getAllFromLocalStorage(){
-  var allItems = []
+  var allItems = [];
   for (var i = 0; i < localStorage.length; i++) {
     allItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
   }
@@ -196,6 +215,35 @@ function filterList(){
   }
 }
 
+function completedList() {
+  var filterCompleteList = [];
+  var fullList = getAllFromLocalStorage();
+  filterCompleteList = fullList.filter(function(item) {
+    return item.isComplete === false;
+  })
+  if (filterCompleteList.length > 0) {
+    displaySearchResults(filterCompleteList);
+  }
+}
+
+function showCompletedTasks() {
+  var filterCompleteList = [];
+  var fullList = getAllFromLocalStorage();
+  filterCompleteList = fullList.filter(function(item) {
+    return item.isComplete === true;
+  })
+  if (filterCompleteList.length > 0) {
+      AllDisplaySearchResults(filterCompleteList);
+  }
+}
+
+function AllDisplaySearchResults(searchResults) {
+  $('.card-container').prepend();
+  searchResults.forEach(function(item) {
+    prepend(item);
+  })
+}
+
 function displaySearchResults(searchResults) {
   $('.card-container').empty();
   searchResults.forEach(function(item) {
@@ -203,12 +251,12 @@ function displaySearchResults(searchResults) {
   })
 }
 
-function saveNewItem()  {
- var title = $('.input-title').val();// capture input value
- var body = $('.input-body').val();// capture body value
- var idea = new Idea(title, body);// create a new Idea object and pass thru the captured input and body values
- prepend(idea); // add the new idea card to the card area
- clearInputFields();  // clear the user input and body values
- sendToStorage(idea); // set the item and stringify to local storage
- disableSaveButton();
+function saveNewItem() {
+  var title = $('.input-title').val();// capture input value
+  var body = $('.input-body').val();// capture body value
+  var idea = new Idea(title, body);// create a new Idea object and pass thru the captured input and body values
+  prepend(idea); // add the new idea card to the card area
+  clearInputFields();  // clear the user input and body values
+  sendToStorage(idea); // set the item and stringify to local storage
+  disableSaveButton();
 }

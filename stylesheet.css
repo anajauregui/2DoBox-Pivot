@@ -129,9 +129,13 @@ main {
   display: flex;
   flex-direction: column;
   width: 320px;
-  height: 60px;
+  /*height: 60px;*/
   margin: auto;
   align-items: center;
+}
+
+.search-container button {
+  display: inline-block;
 }
 
 .search-input {
@@ -246,7 +250,7 @@ main {
   background-image: url('assets/downvote-hover.svg');
 }
 
-.quality {
+.importance {
   font-family: 'Roboto Slab', serif;
   font-size: 12px;
   position: relative;
@@ -256,7 +260,7 @@ main {
   color: #6d6e71;
 }
 
-.quality-value {
+.importance-value {
   font-size: 12px;
   position: relative;
   top: -3px;
@@ -352,8 +356,8 @@ media query 1000
     width: 590px;
   }
 
-  .quality,
-  .quality-value,
+  .importance,
+  .importance-value,
   .idea-body {
     font-size: 20px;
   }

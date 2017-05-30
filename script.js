@@ -6,7 +6,7 @@
 function Idea(title, body)  {
   this.title = title;
   this.body = body;
-  this.quality = 'Swill';// default quality
+  this.importance = 'Normal';// default importance
   this.id = Date.now();// this creates a unique time stamp that will be used to identify an individual card by placing it in an article as the name of the ID
   this.isComplete = false;
 }
@@ -60,39 +60,81 @@ $('.card-container').on('keyup', '.idea-title', editTitle);
 //  new input in exsisting body area save to storage
 $('.card-container').on('keyup', '.idea-body', editTask);
 
-// up arrow button change quality
-$('.card-container').on('click', '.arrow-up',  function() {
-  var id = $(this).parent().parent().prop('id');//get the unique id of this idea card
-  var parsedIdea = JSON.parse(localStorage.getItem(id));//get this idea card from storage and parse it
-  var currentQuality = parsedIdea.quality;//get the current quality of this idea card
-  // adjust the quality based on the current quality
-  if(currentQuality === 'Swill') {
-    parsedIdea.quality = 'Plausible'// change the object idea cards quality
-    $(this).siblings('.quality-value').text('Plausible');// change the quality of the idea card on the DOM
-  }
-  else if(currentQuality === 'Plausible') {
-    parsedIdea.quality = 'Genius'// change the object idea cards quality
-    $(this).siblings('.quality-value').text('Genius');// change the quality of the idea card on the DOM
-  }
-  localStorage.setItem(id, JSON.stringify(parsedIdea));// return the updated object idea card to local storage
-})
+// up arrow button change importance
+$('.card-container').on('click', '.arrow-up', changeUpvoteImportance);
 
-// down arrow button change quality
-$('.card-container').on('click', '.arrow-down',  function() {
-  var id = $(this).parent().parent().prop('id');//get the unique id of this idea card
-  var parsedIdea = JSON.parse(localStorage.getItem(id));//get this idea card from storage and parse it
-  var currentQuality = parsedIdea.quality;//get the current quality of this idea card
-  // adjust the quality based on the current quality
-  if(currentQuality === 'Genius') {
-    parsedIdea.quality = 'Plausible'// change the object idea cards quality
-    $(this).siblings('.quality-value').text('Plausible');// change the quality of the idea card on the DOM
+// down arrow button change importance
+$('.card-container').on('click', '.arrow-down', changeDownvoteImportance);
+
+
+function changeUpvoteImportance() {
+  var id = $(this).parent().parent().prop('id');//get the unique id of this task card
+  var parsedTask = JSON.parse(localStorage.getItem(id));//get this task card from storage and parse it
+  var currentImportance = parsedTask.importance;//get the current importance of this task card
+  // adjust the importance level based on the current importance
+  if(currentImportance === 'None') {
+    parsedTask.importance = 'Low'// change the object idea card's importance
+    $(this).siblings('.importance-value').text('Low');// change the importance of the task card on the DOM
+  } else if(currentImportance === 'Low') {
+    parsedTask.importance = 'Normal'// change the object idea card's importance
+    $(this).siblings('.importance-value').text('Normal');// change the importance of the task card on the DOM
+  } else if(currentImportance === 'Normal') {
+    parsedTask.importance = 'High' // change the object idea card's importance
+    $(this).siblings('.importance-value').text('High'); // change the importance of the task card on the DOM
+  } else if(currentImportance === 'High') {
+    parsedTask.importance = 'Critical' // change the object idea card's importance
+    $(this).siblings('.importance-value').text('Critical'); // change the importance of the task card on the DOM
   }
-  else if(currentQuality === 'Plausible') {
-    parsedIdea.quality = 'Swill'// change the object idea cards quality
-    $(this).siblings('.quality-value').text('Swill');// change the quality of the idea card on the DOM
+  localStorage.setItem(id, JSON.stringify(parsedTask));// return the updated object task card to local storage
+}
+
+function changeDownvoteImportance() {
+  var id = $(this).parent().parent().prop('id');//get the unique id of this task card
+  var parsedTask = JSON.parse(localStorage.getItem(id));//get this task card from storage and parse it
+  var currentImportance = parsedTask.importance;//get the current importance of this task card
+  // adjust the importance level based on the current importance
+  if(currentImportance === 'Critical') {
+    parsedTask.importance = 'High'// change the object idea card's importance
+    $(this).siblings('.importance-value').text('High');// change the importance of the task card on the DOM
+  } else if(currentImportance === 'High') {
+    parsedTask.importance = 'Normal'// change the object idea card's importance
+    $(this).siblings('.importance-value').text('Normal');// change the importance of the task card on the DOM
+  } else if(currentImportance === 'Normal') {
+    parsedTask.importance = 'Low' // change the object idea card's importance
+    $(this).siblings('.importance-value').text('Low'); // change the importance of the task card on the DOM
+  } else if(currentImportance === 'Low') {
+    parsedTask.importance = 'None' // change the object idea card's importance
+    $(this).siblings('.importance-value').text('None'); // change the importance of the task card on the DOM
   }
-  localStorage.setItem(id, JSON.stringify(parsedIdea));// return the updated object idea card to local storage
-})
+  localStorage.setItem(id, JSON.stringify(parsedTask));// return the updated object task card to local storage
+}
+
+// function switchUpvote(currentImportance) {
+//   console.log('parsedTask current importance: ' + currentImportance);
+//   switch (currentImportance) {
+//     case 'None':
+//       currentImportance = 'Low';
+//       $(this).find('.importance-value').text('Low');
+//       break;
+//     case 'Low':
+//       currentImportance = 'Normal';
+//       $(this).find('.importance-value').text('Normal');
+//       break;
+//     case 'Normal':
+//       currentImportance = 'High';
+//       $(this).find('.importance-value').text('High');
+//       break;
+//     case 'High':
+//       currentImportance = 'Critical';
+//       $(this).find('.importance-value').text('Critical');
+//       break;
+//     default:
+//       console.log(($(this).find('.importance-value')));
+//       console.log('switch is not working');
+//       break;
+//   }
+// }
+
 
 //********************************************************************************
 //   functions
@@ -109,8 +151,8 @@ function prepend(idea)  { // add the new idea card created on the save button ev
       <section class='button-container'>
         <button class='arrow-up'></button>
         <button class='arrow-down'></button>
-        <p class='quality'>quality:</p>
-        <p class='quality-value'> ${idea.quality}</p>
+        <p class='importance'>importance:</p>
+        <p class='importance-value'> ${idea.importance}</p>
       </section>
       <hr />
     </article>

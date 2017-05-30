@@ -40,7 +40,7 @@ header {
   align-items: center;
 }
 
-.idea {
+.task {
   font-family: 'Roboto Slab', serif;
   font-size: 35px;
   font-weight: 700;
@@ -62,8 +62,8 @@ header {
   height: 25px;
   margin: 0 0 10px 0;
   color: #939598;
-  /*border-width: 1px;
-  border-color: #D1D3D4;*/
+  border-width: 1px;
+  border-color: #D1D3D4;
   border: solid 2px #d1d3d4;
   outline: none;
 }
@@ -160,13 +160,13 @@ main {
           Idea card layout
 ************************************/
 
-.idea-card {
+.task-card {
   width: 300px;
   height: 200px;
   margin: auto;
 }
 
-.idea-title {
+.task-title {
   font-family: 'Roboto Slab', serif;
   font-size: 14px;
   display: inline;
@@ -204,7 +204,7 @@ main {
   background-image: url('assets/delete-hover.svg');
 }
 
-.idea-body {
+.task-body {
   font-size: 12px;
   width: 300px;
   height: 100px;
@@ -294,15 +294,15 @@ media query 750
   .save-button,
   .show-completed,
   .search-input,
-  .idea-card {
+  .task-card {
     width: 410px;
   }
 
-  .idea-body {
+  .task-body {
     width: 400px;
   }
 
-  .idea-title {
+  .task-title {
     width: 375px;
   }
 }
@@ -318,12 +318,12 @@ media query 1000
   .save-button,
   .show-completed,
   .search-input,
-  .idea-card {
+  .task-card {
     width: 640px;
   }
 
-  .input-title,
-  .input-body,
+  .task-title,
+  .task-body,
   .save-button,
   .show-completed,
   .search-input {
@@ -331,7 +331,7 @@ media query 1000
     height: 40px;
   }
 
-  .idea,
+  .task,
   .box {
     font-size: 50px;
   }
@@ -347,18 +347,18 @@ media query 1000
     margin-top: 3px;
   }
 
-  .idea-title {
+  .task-title {
     font-size: 26px;
   }
 
-  .idea-title,
-  .idea-body {
+  .task-title,
+  .task-body {
     width: 590px;
   }
 
   .importance,
   .importance-value,
-  .idea-body {
+  .task-body {
     font-size: 20px;
   }
 
@@ -368,7 +368,7 @@ media query 1000
     height: 30px;
   }
 
-  .idea-card {
+  .task-card {
     height: 210px;
   }
 

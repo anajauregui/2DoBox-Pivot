@@ -22,7 +22,7 @@ $(document).ready(function() { // fire on document load
 	}
   completedList();
 });
-//Use show completed todo button to display completed todo's on top of 
+//Use show completed todo button to display completed todo's on top of
 $('.show-completed').on('click', showCompletedTasks)
 
 //Toggle completed task to-do for strike through
@@ -182,6 +182,7 @@ function disableSaveButton() {
 function clearInputFields() { //clear the title and body input fields
   $('.input-title').val('');
   $('.input-body').val('');
+  $('.input-title').focus();
 }
 
 // send idea to local storage

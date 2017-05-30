@@ -65,6 +65,7 @@ header {
   /*border-width: 1px;
   border-color: #D1D3D4;*/
   border: solid 2px #d1d3d4;
+  outline: none;
 }
 
 .input-body {
@@ -77,6 +78,7 @@ header {
   /*border-style: inset;*/
   border-width: 2px;
   border-color: #d1d3d4;
+  outline: none;
 }
 
 input::placeholder {

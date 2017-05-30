@@ -12,7 +12,7 @@ function Idea(title, body)  {
 }
 
 //************************************************************
-//  event listensers
+//  event listeners
 //************************************************************
 
 // on page load loops over local storage and appends each item to page
@@ -37,19 +37,19 @@ $('.input-container').on('input', enableSaveButton);
 // save button capture input values and send to append function
 $('.save-button').on('click', saveNewItem);
 
-$(document).keypress(function(e) {
-  if(e.which == 13) {
+$(window).on('keyup', function(e) {
+  if(e.keyCode === 13 && ($('.input-title').val() !== '') && ($('.input-body').val() !== '')){
     enableSaveButton13();
   }
-})
+});
 
-// $('.card-container').on('input keydown', '.idea-body', function(e) {
-//   if(e.keycode == 13) {
-//     e.preventDefault();
-//     $('.idea-body').trigger('focusout');
-//     console.log('clicked');
-//   }
-// })
+$('.card-container').on('input keydown', '.idea-input', function(e) {
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    $(e.target).prop('contenteditable', false);
+    $('.input-title').focus();
+  }
+});
 
 // delete
 $('.card-container').on('click', '.delete-button', deleteItem);

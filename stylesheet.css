@@ -182,15 +182,14 @@ main {
 }
 
 .completed-task {
-  float: right;
-  width: 25px;
-  height: 25px;
-  margin-left: 5px;
-  padding: 0;
-  border: none;
-  background: none;
-  background-image: url('assets/success.png');
-  background-repeat: round;
+  position: absolute;
+  right: 0px;
+  padding: 3px;
+  background: #00a79d;
+  border: 2px solid #00a79d;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
 }
 
 .complete {
@@ -229,6 +228,7 @@ main {
 .button-container {
   display: flex;
   align-items: center;
+  position: relative;
   margin-bottom: 20px;
 }
 

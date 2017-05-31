@@ -67,7 +67,7 @@ function completeTask(complete) {
   var parsedTask = JSON.parse(localStorage.getItem(id));
   var isComplete = parsedTask.isComplete;
   if (isComplete === false) {
-    $(this).parent().toggleClass('complete');
+    $(this).parent().addClass('complete');
     parsedTask.isComplete = true;
   }
     localStorage.setItem(id, JSON.stringify(parsedTask))
@@ -186,6 +186,16 @@ function getAllFromLocalStorage(){
   return allItems;
 }
 
+// *****************************************************************************
+//This is a test function to show what we will need to implement to have only 10 most recent tasks appear on the page. to start from the end need to use a (- integer)
+function test(){
+  var array = [];
+  var limitList = getAllFromLocalStorage();
+array = limitList.slice(0,11);
+  return array;
+}
+// *****************************************************************************
+
 function filterList(){
   var filteredList = [];
   var searchText = $('.search-input').val().toUpperCase();
@@ -217,9 +227,13 @@ function showCompletedTasks() {
   })
   if (filterCompleteList.length > 0) {
       AllDisplaySearchResults(filterCompleteList);
-      disableShowCompleteBtn()
+      disableShowCompleteBtn();
   }
 }
+
+// function addCompletedClass(item) {
+//   $(item).addClass('complete');
+// }
 
 function AllDisplaySearchResults(searchResults) {
   $('.card-container').prepend();
@@ -241,6 +255,8 @@ function loadPage() {
   }
   completedList();
 }
+
+
 
 function saveNewItem() {
   var title = $('.input-title').val();// capture input value

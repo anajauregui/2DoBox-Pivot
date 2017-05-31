@@ -58,7 +58,6 @@ function prepend(task)  {
   $('.card-container').prepend(`
     <article class='task-card'id=${task.id}>
       <input class='task-title task-input' value='${task.title}'>
-      <button class='completed-task'></button>
       <button class='delete-button'></button>
       <textarea cols='30' rows='10' class='task-body task-input' type='text' value=''>${task.body}</textarea>
       <section class='button-container'>
@@ -66,6 +65,7 @@ function prepend(task)  {
         <button class='arrow-down'></button>
         <p class='importance'>Importance:&nbsp</p>
         <p class='importance-value'> ${task.importance}</p>
+        <button class='completed-task'>Completed Task</button>
       </section>
       <hr />
     </article>

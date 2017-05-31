@@ -40,6 +40,16 @@ $('.card-container').on('click', '.arrow-up', changeUpvoteImportance);
 
 $('.card-container').on('click', '.arrow-down', changeDownvoteImportance);
 
+$('.critical-importance').on('click', filterCritical);
+
+$('.high-importance').on('click', filterHigh);
+
+$('.normal-importance').on('click', filterNormal);
+
+$('.low-importance').on('click', filterLow);
+
+$('.no-importance').on('click', filterNone);
+
 //********************************************************************************
 //   functions
 //*********************************************************************************
@@ -48,7 +58,6 @@ function prepend(task)  {
   $('.card-container').prepend(`
     <article class='task-card'id=${task.id}>
       <input class='task-title task-input' value='${task.title}'>
-      <button class='completed-task'></button>
       <button class='delete-button'></button>
       <textarea cols='30' rows='10' class='task-body task-input' type='text' value=''>${task.body}</textarea>
       <section class='button-container'>
@@ -56,6 +65,7 @@ function prepend(task)  {
         <button class='arrow-down'></button>
         <p class='importance'>Importance:&nbsp</p>
         <p class='importance-value'> ${task.importance}</p>
+        <button class='completed-task'>Completed Task</button>
       </section>
       <hr />
     </article>
@@ -184,6 +194,68 @@ function getAllFromLocalStorage(){
     allItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
   }
   return allItems;
+}
+
+// Filter by different importance levels
+
+function filterCritical() {
+  console.log('clicked');
+  var newList = [];
+  var wholeList = getAllFromLocalStorage();
+  newList = wholeList.filter(function(task) {
+    return task.importance === 'Critical';
+  })
+  if (newList.length > 0) {
+    displaySearchResults(newList);
+  }
+}
+
+function filterHigh() {
+  console.log('clicked');
+  var newList = [];
+  var wholeList = getAllFromLocalStorage();
+  newList = wholeList.filter(function(task) {
+    return task.importance === 'High';
+  })
+  if (newList.length > 0) {
+    displaySearchResults(newList);
+  }
+}
+
+function filterNormal() {
+  console.log('clicked');
+  var newList = [];
+  var wholeList = getAllFromLocalStorage();
+  newList = wholeList.filter(function(task) {
+    return task.importance === 'Normal';
+  })
+  if (newList.length > 0) {
+    displaySearchResults(newList);
+  }
+}
+
+function filterLow() {
+  console.log('clicked');
+  var newList = [];
+  var wholeList = getAllFromLocalStorage();
+  newList = wholeList.filter(function(task) {
+    return task.importance === 'Low';
+  })
+  if (newList.length > 0) {
+    displaySearchResults(newList);
+  }
+}
+
+function filterNone() {
+  console.log('clicked');
+  var newList = [];
+  var wholeList = getAllFromLocalStorage();
+  newList = wholeList.filter(function(task) {
+    return task.importance === 'None';
+  })
+  if (newList.length > 0) {
+    displaySearchResults(newList);
+  }
 }
 
 function filterList(){

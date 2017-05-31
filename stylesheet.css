@@ -83,7 +83,8 @@ textarea::placeholder {
 }
 
 .save-button,
-.show-completed {
+.show-completed,
+.show-more {
   display: block;
   width: 95%;
   height: 40px;
@@ -284,6 +285,7 @@ media query 490
   .input-body,
   .save-button,
   .show-completed,
+  .show-more,
   .importance-btns,
   .search-input,
   .task-card {
@@ -299,6 +301,7 @@ media query 665
   .input-title,
   .input-body,
   .save-button,
+  .show-more,
   .show-completed,
   .search-input,
   .task-card {
@@ -323,6 +326,7 @@ media query 980
   .input-title,
   .input-body,
   .save-button,
+  .show-more,
   .show-completed,
   .search-input,
   .task-card {
@@ -336,6 +340,7 @@ media query 980
   .task-title,
   .task-body,
   .save-button,
+  .show-more,
   .show-completed,
   .search-input {
     font-size: 30px;

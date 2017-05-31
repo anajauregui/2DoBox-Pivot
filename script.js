@@ -48,13 +48,13 @@ function prepend(task)  {
   $('.card-container').prepend(`
     <article class='task-card'id=${task.id}>
       <input class='task-title task-input' value='${task.title}'>
-      <img class='completed-task' src='assets/success.png'>
+      <button class='completed-task'></button>
       <button class='delete-button'></button>
       <textarea cols='30' rows='10' class='task-body task-input' type='text' value=''>${task.body}</textarea>
       <section class='button-container'>
         <button class='arrow-up'></button>
         <button class='arrow-down'></button>
-        <p class='importance'>Importance:</p>
+        <p class='importance'>Importance:&nbsp</p>
         <p class='importance-value'> ${task.importance}</p>
       </section>
       <hr />

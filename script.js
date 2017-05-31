@@ -55,8 +55,12 @@ $('.no-importance').on('click', filterNone);
 //*********************************************************************************
 
 function prepend(task)  {
+  if (task.isComplete) {
+    var completeTask = 'complete';
+  }
+
   $('.card-container').prepend(`
-    <article class='task-card'id=${task.id}>
+    <article class='task-card ${completeTask}'id=${task.id}>
       <input class='task-title task-input' value='${task.title}'>
       <button class='delete-button'></button>
       <textarea cols='30' rows='10' class='task-body task-input' type='text' value=''>${task.body}</textarea>
@@ -73,15 +77,13 @@ function prepend(task)  {
 }
 
 function completeTask(complete) {
-  var id = $(this).parent().prop('id');
+  var id = $(this).closest('article').prop('id');
   var parsedTask = JSON.parse(localStorage.getItem(id));
   var isComplete = parsedTask.isComplete;
-  if (isComplete === false) {
-    $(this).parent().toggleClass('complete');
-    parsedTask.isComplete = true;
-  }
+    $(this).closest('article').toggleClass('complete');
+    parsedTask.isComplete = !parsedTask.isComplete;
     localStorage.setItem(id, JSON.stringify(parsedTask))
-    // enableShowCompleteBtn();
+    enableShowCompleteBtn();
 }
 
 function deleteItem() {
@@ -129,22 +131,6 @@ function enableSaveButton()  {
   }
 }
 
-// function enableShowCompleteBtn() {
-//   console.log('function might be working');
-//   var filteredList = [];
-//   var fullList = getAllFromLocalStorage();
-//   var targetTask = $('.card-container').find('.completed-task').hasClass('completed');
-//   filteredList = fullList.filter(function() {
-//     console.log($('.card-container').find('.completed-task').hasClass('completed'));
-//     return (targetTask === true);
-//   })
-//   if (filteredList.length > 0) {
-//     $('.show-completed').prop('disabled', false);
-//   } else {
-//     $('.show-completed').prop('disabled', true);
-//   }
-// }
-
 // edit title or body upon pressing enter key
 function enterEdit(e) {
   if (e.keyCode === 13) {
@@ -168,6 +154,11 @@ function disableSaveButton() {
 
 function disableShowCompleteBtn() {
   $('.show-completed').prop('disabled', true)
+  // if ($('.show-completed').attr('disabled', true))
+}
+
+function enableShowCompleteBtn() {
+  $('.show-completed').prop('disabled', false)
 }
 
 // clear input fields
@@ -195,6 +186,17 @@ function getAllFromLocalStorage(){
   }
   return allItems;
 }
+
+
+// *****************************************************************************
+//This is a test function to show what we will need to implement to have only 10 most recent tasks appear on the page. to start from the end need to use a (- integer)
+function test(){
+  var array = [];
+  var limitList = getAllFromLocalStorage();
+array = limitList.slice(0,11);
+  return array;
+}
+// *****************************************************************************
 
 // Filter by different importance levels
 
@@ -258,6 +260,7 @@ function filterNone() {
   }
 }
 
+
 function filterList(){
   var filteredList = [];
   var searchText = $('.search-input').val().toUpperCase();
@@ -288,10 +291,25 @@ function showCompletedTasks() {
     return item.isComplete === true;
   })
   if (filterCompleteList.length > 0) {
+      loadPage();
       AllDisplaySearchResults(filterCompleteList);
-      disableShowCompleteBtn()
+      disableShowCompleteBtn();
   }
 }
+
+// function enableShowCompleteBtn() {
+//   var filterCompleteList = [];
+//   var fullList = getAllFromLocalStorage();
+//   filterCompleteList = fullList.filter(function(item) {
+//     return item.isComplete === true;
+//   })
+//   if (filteredList.length > 0) {
+//     $('.show-completed').prop('disabled', false);
+//   } else {
+//     $('.show-completed').prop('disabled', true);
+//   }
+// }
+
 
 function AllDisplaySearchResults(searchResults) {
   $('.card-container').prepend();
@@ -313,6 +331,8 @@ function loadPage() {
   }
   completedList();
 }
+
+
 
 function saveNewItem() {
   var title = $('.input-title').val();// capture input value

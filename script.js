@@ -140,6 +140,7 @@ function enterEdit(e) {
 function enterSave(e) {
   if(e.keyCode === 13 && ($('.input-title').val() !== '') && ($('.input-body').val() !== '')){
     enableSaveButton13();
+    showTenTasks();
   }
 }
 
@@ -237,6 +238,7 @@ function prepend(task)  {
     var body = $('.input-body').val();
     var task = new Task(title, body);
     prepend(task);
+    showTenTasks();
     clearInputFields();
     sendToStorage(task);
     disableSaveButton();

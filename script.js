@@ -76,6 +76,11 @@ function prepend(task)  {
     `)
 }
 
+function showTenTasks() {
+  $('.task-card').slice(10).hide();
+  console.log('10');
+}
+
 function completeTask(complete) {
   var id = $(this).closest('article').prop('id');
   var parsedTask = JSON.parse(localStorage.getItem(id));
@@ -90,6 +95,8 @@ function deleteItem() {
   var id = $(this).parent().prop('id');
   localStorage.removeItem(id);
   $(this).parent().remove();
+  loadPage();
+  debugger;
 };
 
 function editTitle() {
@@ -330,6 +337,7 @@ function loadPage() {
 		prepend(JSON.parse(localStorage.getItem(localStorage.key(i))));
   }
   completedList();
+  showTenTasks();
 }
 
 
@@ -342,6 +350,8 @@ function saveNewItem() {
   clearInputFields();  // clear the user input and body values
   sendToStorage(task); // set the item and stringify to local storage
   disableSaveButton();
+  // showTenTasks();
+  loadPage();
 }
 
 function changeUpvoteImportance() {

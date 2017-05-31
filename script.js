@@ -350,7 +350,6 @@ function saveNewItem() {
   clearInputFields();  // clear the user input and body values
   sendToStorage(task); // set the item and stringify to local storage
   disableSaveButton();
-  // showTenTasks();
   loadPage();
 }
 

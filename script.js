@@ -1,5 +1,5 @@
 //***********************************************************
-//  objects
+//  object
 //***********************************************************
 
 function Task(title, body)  {
@@ -40,15 +40,11 @@ $('.card-container').on('click', '.arrow-up', changeUpvoteImportance);
 
 $('.card-container').on('click', '.arrow-down', changeDownvoteImportance);
 
-$('.critical-importance').on('click', filterCritical);
-
-$('.high-importance').on('click', filterHigh);
-
-$('.normal-importance').on('click', filterNormal);
-
-$('.low-importance').on('click', filterLow);
-
-$('.no-importance').on('click', filterNone);
+$('.critical-importance').on('click', filterImportance);
+$('.high-importance').on('click', filterImportance);
+$('.normal-importance').on('click', filterImportance);
+$('.low-importance').on('click', filterImportance);
+$('.no-importance').on('click', filterImportance);
 
 //********************************************************************************
 //   functions
@@ -78,7 +74,6 @@ function prepend(task)  {
 
 function showTenTasks() {
   $('.task-card').slice(10).hide();
-  console.log('10');
 }
 
 function completeTask(complete) {
@@ -96,7 +91,6 @@ function deleteItem() {
   localStorage.removeItem(id);
   $(this).parent().remove();
   loadPage();
-  debugger;
 };
 
 function editTitle() {
@@ -194,79 +188,19 @@ function getAllFromLocalStorage(){
   return allItems;
 }
 
-
-// *****************************************************************************
-//This is a test function to show what we will need to implement to have only 10 most recent tasks appear on the page. to start from the end need to use a (- integer)
-function test(){
-  var array = [];
-  var limitList = getAllFromLocalStorage();
-array = limitList.slice(0,11);
-  return array;
-}
-// *****************************************************************************
-
-// Filter by different importance levels
-
-function filterCritical() {
-  console.log('clicked');
+function filterImportance() {
   var newList = [];
+  var buttonText = $(this).text();
   var wholeList = getAllFromLocalStorage();
   newList = wholeList.filter(function(task) {
-    return task.importance === 'Critical';
+    return task.importance === buttonText;
   })
   if (newList.length > 0) {
     displaySearchResults(newList);
+  } else {
+    $('.card-container').empty();
   }
 }
-
-function filterHigh() {
-  console.log('clicked');
-  var newList = [];
-  var wholeList = getAllFromLocalStorage();
-  newList = wholeList.filter(function(task) {
-    return task.importance === 'High';
-  })
-  if (newList.length > 0) {
-    displaySearchResults(newList);
-  }
-}
-
-function filterNormal() {
-  console.log('clicked');
-  var newList = [];
-  var wholeList = getAllFromLocalStorage();
-  newList = wholeList.filter(function(task) {
-    return task.importance === 'Normal';
-  })
-  if (newList.length > 0) {
-    displaySearchResults(newList);
-  }
-}
-
-function filterLow() {
-  console.log('clicked');
-  var newList = [];
-  var wholeList = getAllFromLocalStorage();
-  newList = wholeList.filter(function(task) {
-    return task.importance === 'Low';
-  })
-  if (newList.length > 0) {
-    displaySearchResults(newList);
-  }
-}
-
-function filterNone() {
-  console.log('clicked');
-  var newList = [];
-  var wholeList = getAllFromLocalStorage();
-  newList = wholeList.filter(function(task) {
-    return task.importance === 'None';
-  })
-  if (newList.length > 0) {
-    displaySearchResults(newList);
-  }
-}
-
 
 function filterList(){
   var filteredList = [];
@@ -304,20 +238,6 @@ function showCompletedTasks() {
   }
 }
 
-// function enableShowCompleteBtn() {
-//   var filterCompleteList = [];
-//   var fullList = getAllFromLocalStorage();
-//   filterCompleteList = fullList.filter(function(item) {
-//     return item.isComplete === true;
-//   })
-//   if (filteredList.length > 0) {
-//     $('.show-completed').prop('disabled', false);
-//   } else {
-//     $('.show-completed').prop('disabled', true);
-//   }
-// }
-
-
 function AllDisplaySearchResults(searchResults) {
   $('.card-container').prepend();
   searchResults.forEach(function(item) {
@@ -340,15 +260,13 @@ function loadPage() {
   showTenTasks();
 }
 
-
-
 function saveNewItem() {
   var title = $('.input-title').val();// capture input value
   var body = $('.input-body').val();// capture body value
   var task = new Task(title, body);// create a new Task object and pass thru the captured input and body values
   prepend(task); // add the new task card to the card area
   clearInputFields();  // clear the user input and body values
-  sendToStorage(task); // set the item and stringify to local storage
+  sendToStorage(task);
   disableSaveButton();
   loadPage();
 }

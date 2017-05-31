@@ -3,10 +3,13 @@
 ************************************/
 
 * {
-  font-family: 'Open Sans', sans-serif;
   box-sizing: border-box;
   margin: 0;
+}
+
+body {
   color: #939598;
+  font-family: 'Open Sans', sans-serif;
 }
 
 button:focus {
@@ -15,7 +18,6 @@ button:focus {
 }
 
 textarea:focus {
-  /*outline: none;*/
   border: none;
 }
 
@@ -24,68 +26,57 @@ textarea:focus {
 ************************************/
 
 header {
-  width: 100%;
   height: auto;
-  background: #e5f3f2;
+  padding: 20px;
+  width: 100%;
+  background-color: #e5f3f2;
+  text-align: center;
 }
 
 .input-container {
   display: flex;
   flex-direction: column;
-  width: 320px;
-  /*height: 226px;*/
-  height: 245px;
+  align-items: center;
+  min-width: 250px;
   margin: auto;
   background: #e5f3f2;
-  align-items: center;
 }
 
 .task {
+  margin: 10px 0 20px 0;
   font-family: 'Roboto Slab', serif;
   font-size: 35px;
   font-weight: 700;
-  margin: 12px 0 12px 0;
   color: #00a79d;
 }
 
 .box {
-  font-family: 'Roboto Slab', serif;
-  font-size: 35px;
-  font-weight: 700;
-  margin: 0 0 0 0;
   color: #6d6e71;
 }
 
 .input-title {
-  font-size: 14px;
-  width: 300px;
-  height: 25px;
-  margin: 0 0 10px 0;
-  color: #939598;
-  border-width: 1px;
-  border-color: #D1D3D4;
-  border: solid 2px #d1d3d4;
-  outline: none;
+  display: block;
+  height: 40px;
+  width: 95%;
+  margin: 0 0 15px 0;
+  border: 2px solid #d1d3d4;
+  color: #6d6e71;
+  font-size: 25px;
+  letter-spacing: 0.8px;
 }
 
 .input-body {
-  font-size: 14px;
-  width: 300px;
-  height: 75px;
-  margin: 0 0 10px 0;
+  height: 120px;
+  width: 95%;
+  margin: 0 0 15px 0;
   resize: none;
-  color: #939598;
-  /*border-style: inset;*/
-  border-width: 2px;
-  border-color: #d1d3d4;
-  outline: none;
+  color: #6d6e71;
+  border: 2px solid #d1d3d4;
+  font-size: 25px;
+  letter-spacing: 0.8px;
 }
 
-input::placeholder {
-  opacity: .8;
-  color: #939598;
-}
-
+input::placeholder,
 textarea::placeholder {
   opacity: .8;
   color: #939598;
@@ -93,14 +84,16 @@ textarea::placeholder {
 
 .save-button,
 .show-completed {
-  width: 300px;
-  height: 25px;
-  margin: 0 0 0 0;
-  margin-bottom: 5px;
-  text-decoration: none;
+  display: block;
+  width: 95%;
+  height: 40px;
+  margin: 0 0 15px 0;
   color: #fff;
   border: none;
   background: #00a79d;
+  font-size: 20px;
+  letter-spacing: 0.8px;
+  text-decoration: none;
 }
 
 button:active {
@@ -113,7 +106,7 @@ button:active {
 
 .save-button:disabled,
 .show-completed:disabled {
-    background: #939598;
+  background-color: #939598;
 }
 
 /************************************
@@ -123,36 +116,47 @@ button:active {
 main {
   width: 100%;
   height: auto;
+  padding: 20px;
 }
 
 .search-container {
   display: flex;
   flex-direction: column;
-  width: 320px;
-  /*height: 60px;*/
-  margin: auto;
   align-items: center;
+  margin: auto;
+}
+
+.importance-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 95%;
+  margin: 10px 0;
 }
 
 .search-container button {
-  display: inline-block;
+  background: #00a79d;
+  border: 2px solid #00a79d;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
 }
 
 .search-input {
-  font-size: 14px;
-  width: 300px;
-  height: 25px;
+  display: block;
+  width: 95%;
+  height: 40px;
   margin: auto;
-  color: #939598;
+  margin-bottom: 40px;
   border: solid 2px #d1d3d4;
+  color: #939598;
+  font-size: 25px;
+  letter-spacing: 0.8px;
 }
 
 .card-container {
   display: flex;
   flex-direction: column;
-  width: 320px;
-  height: auto;
-  margin: auto;
   align-items: center;
 }
 
@@ -161,39 +165,45 @@ main {
 ************************************/
 
 .task-card {
-  width: 300px;
-  height: 200px;
+  width: 95%;
   margin: auto;
 }
 
 .task-title {
-  font-family: 'Roboto Slab', serif;
-  font-size: 14px;
-  display: inline;
-  width: 275px;
-  margin: 0 0 0 0;
+  display: inline-block;
+  width: 75%;
+  padding-bottom: 20px;
   color: #6d6e71;
   border: none;
-  outline: none;
+  font-family: 'Roboto Slab', serif;
+  font-size: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .completed-task {
-  width: 26px;
-  height: 26px;
   float: right;
-  margin-right: 3px;
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+  padding: 0;
+  border: none;
+  background: none;
+  background-image: url('assets/success.png');
+  background-repeat: round;
 }
 
 .complete {
-  text-decoration: line-through;
+  color: #888;
   opacity: 0.3;
-  color: black;
+  text-decoration: line-through;
 }
 
 .delete-button {
   float: right;
-  width: 20px;
-  height: 20px;
+  width: 29px;
+  height: 29px;
+  padding: 0;
   border: none;
   background: none;
   background-image: url('assets/delete.svg');
@@ -205,89 +215,87 @@ main {
 }
 
 .task-body {
-  font-size: 12px;
-  width: 300px;
+  width: 90%;
   height: 100px;
-  margin-top: 10px;
   margin-bottom: 10px;
+  padding: 3px 0;
   resize: none;
-  color: #939598;
   border: none;
+  color: #939598;
+  font-size: 20px;
+  line-height: 1.2;
 }
 
 .button-container {
-  width: 100%;
-  height: 22px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.arrow-up,
+.arrow-down {
+  display: inline;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  padding: 0;
+  border: none;
+  background: none;
+  background-repeat: round;
 }
 
 .arrow-up {
-  display: inline;
-  width: 20px;
-  height: 20px;
-  margin-right: 7px;
-  border: none;
-  background: none;
   background-image: url('assets/upvote.svg');
-  background-repeat: round;
+}
+
+.arrow-down {
+  background-image: url('assets/downvote.svg');
 }
 
 .arrow-up:hover {
   background-image: url('assets/upvote-hover.svg');
 }
 
-.arrow-down {
-  display: inline;
-  width: 20px;
-  height: 20px;
-  margin-right: 7px;
-  border: none;
-  background: none;
-  background-image: url('assets/downvote.svg');
-  background-repeat: round;
-}
-
 .arrow-down:hover {
   background-image: url('assets/downvote-hover.svg');
 }
 
-.importance {
-  font-family: 'Roboto Slab', serif;
-  font-size: 12px;
-  position: relative;
-  top: -3px;
-  display: inline;
-  margin: 0 0 0 0;
-  color: #6d6e71;
-}
-
+.importance,
 .importance-value {
-  font-size: 12px;
-  position: relative;
-  top: -3px;
-  display: inline;
-  margin: 0 0 0 0;
+  display: inline-block;
   color: #6d6e71;
+  font-size: 16px;
 }
 
 hr {
   height: 2px;
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
   color: #d1d3d4;
   border: none;
   background-color: #d1d3d4;
 }
 
 /***************************************
-media query 750
+media query 490
 ****************************************/
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 490px) {
 
-  .input-container,
-  .search-container,
-  .card-container {
-    width: 700px;
+  .input-title,
+  .input-body,
+  .save-button,
+  .show-completed,
+  .importance-btns,
+  .search-input,
+  .task-card {
+    width: 80%;
   }
+}
+/***************************************
+media query 665
+****************************************/
+
+@media screen and (min-width: 665px) {
 
   .input-title,
   .input-body,
@@ -295,23 +303,23 @@ media query 750
   .show-completed,
   .search-input,
   .task-card {
-    width: 410px;
+    width: 60%;
   }
 
-  .task-body {
-    width: 400px;
+  .importance-btns {
+    width: 55%;
   }
 
-  .task-title {
-    width: 375px;
+  .search-container button {
+    font-size: 16px;
   }
 }
 
 /***************************************
-media query 1000
+media query 980
 ****************************************/
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 980px) {
 
   .input-title,
   .input-body,
@@ -319,7 +327,11 @@ media query 1000
   .show-completed,
   .search-input,
   .task-card {
-    width: 640px;
+    width: 50%;
+  }
+
+  .importance-btns {
+    width: 40%;
   }
 
   .task-title,
@@ -327,8 +339,7 @@ media query 1000
   .save-button,
   .show-completed,
   .search-input {
-    font-size: 26px;
-    height: 40px;
+    font-size: 30px;
   }
 
   .task,
@@ -336,43 +347,9 @@ media query 1000
     font-size: 50px;
   }
 
-  .input-container {
-    /*height: 243px;*/
-    height: 255px;
-  }
-
-  .delete-button {
-    width: 30px;
-    height: 30px;
-    margin-top: 3px;
-  }
-
-  .task-title {
-    font-size: 26px;
-  }
-
-  .task-title,
-  .task-body {
-    width: 590px;
-  }
-
   .importance,
   .importance-value,
   .task-body {
-    font-size: 20px;
-  }
-
-  .arrow-up,
-  .arrow-down {
-    width: 30px;
-    height: 30px;
-  }
-
-  .task-card {
-    height: 210px;
-  }
-
-  hr {
-    margin-top: 20px;
+    font-size: 25px;
   }
 }

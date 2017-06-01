@@ -60,6 +60,7 @@ header {
   width: 95%;
   margin: 0 0 15px 0;
   border: 2px solid #d1d3d4;
+  outline: none;
   color: #6d6e71;
   font-size: 25px;
   letter-spacing: 0.8px;
@@ -72,6 +73,7 @@ header {
   resize: none;
   color: #6d6e71;
   border: 2px solid #d1d3d4;
+  outline: none;
   font-size: 25px;
   letter-spacing: 0.8px;
 }
@@ -105,10 +107,22 @@ button:active {
   background: #045e55;
 }
 
+.show-completed:hover,
+.show-more:hover,
+.critical-importance:hover,
+.high-importance:hover,
+.normal-importance:hover,
+.low-importance:hover,
+.no-importance:hover,
+.completed-task:hover {
+  background-color: #045E55;
+}
+
 .save-button:disabled,
 .show-completed:disabled {
   background-color: #939598;
 }
+
 
 /************************************
           Main

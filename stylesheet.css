@@ -60,10 +60,10 @@ header {
   width: 95%;
   margin: 0 0 15px 0;
   border: 2px solid #d1d3d4;
-  outline: none;
   color: #6d6e71;
   font-size: 25px;
   letter-spacing: 0.8px;
+  outline: none;
 }
 
 .input-body {
@@ -71,11 +71,11 @@ header {
   width: 95%;
   margin: 0 0 15px 0;
   resize: none;
-  color: #6d6e71;
   border: 2px solid #d1d3d4;
-  outline: none;
+  color: #6d6e71;
   font-size: 25px;
   letter-spacing: 0.8px;
+  outline: none;
 }
 
 input::placeholder,
@@ -91,9 +91,9 @@ textarea::placeholder {
   width: 95%;
   height: 40px;
   margin: 0 0 15px 0;
-  color: #fff;
-  border: none;
   background: #00a79d;
+  border: none;
+  color: #fff;
   font-size: 20px;
   letter-spacing: 0.8px;
   text-decoration: none;
@@ -167,6 +167,7 @@ main {
   color: #939598;
   font-size: 25px;
   letter-spacing: 0.8px;
+  outline: none;
 }
 
 .card-container {
